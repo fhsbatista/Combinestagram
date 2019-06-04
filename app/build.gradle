@@ -35,6 +35,15 @@ dependencies {
   def lifecycle_version = '2.0.0'
   implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
 
+  def rxkotlin_version = '2.3.0'
+  implementation "io.reactivex.rxjava2:rxkotlin:$rxkotlin_version"
+
+  def rxjava_version = '2.2.9'
+  implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
+
+  def rxandroid_version = '2.1.1'
+  implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
+
   testImplementation 'junit:junit:4.12'
   androidTestImplementation 'androidx.test:runner:1.1.1'
   androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
