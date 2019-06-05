@@ -69,18 +69,30 @@ class MainActivity : AppCompatActivity() {
           val bitmaps = photos.map { BitmapFactory.decodeResource(resources, it.drawable) }
           val newBitmap = combineImages(bitmaps)
           collageImage.setImageDrawable(BitmapDrawable(resources, newBitmap))
+        } else {
+          collageImage.setImageResource(android.R.color.transparent)
         }
       }
+      updateUi(photos)
     })
 
   }
 
+  private fun updateUi(photos: List<Photo>) {
+    saveButton.isEnabled = photos.isNotEmpty() && (photos.size % 2 == 0)
+    clearButton.isEnabled = photos.isNotEmpty()
+    addButton.isEnabled = photos.size < 6
+    title = if (photos.isNotEmpty()) resources.getQuantityString(R.plurals.photos_format, photos.size, photos.size) else getString(R.string.collage)
+  }
+
   private fun actionAdd() {
-    viewModel.addPhoto(PhotoStore.photos[0])
+    val addPhotosBottomDialogFragment = PhotosBottomDialogFragment.newInstance()
+    addPhotosBottomDialogFragment.show(supportFragmentManager, "PhotosBottomDialogFragment")
+    viewModel.subscribeSelectedPhotos(addPhotosBottomDialogFragment.selectedPhotos)
   }
 
   private fun actionClear() {
-    println("actionClear")
+    viewModel.clearPhotos()
   }
 
   private fun actionSave() {
